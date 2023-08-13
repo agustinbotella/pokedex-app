@@ -29,7 +29,7 @@ function Home() {
   };
 
   useEffect(() => {
-    if (fullPokemonList.current.length === 0) {
+    if (!fullPokemonList.current) {
       getFullPokemonsList().then((response) => {
         fullPokemonList.current = response.data.results;
       });

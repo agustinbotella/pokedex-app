@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchPokemonByName } from "../../api";
 import {
   Paper,
@@ -73,6 +73,16 @@ const Pokemon = () => {
             <Typography variant="h6" gutterBottom>
               Types: {getPokemonTypesAsString(pokemonData.types)}
             </Typography>
+            <Typography variant="h6" gutterBottom>
+              Abilities:
+            </Typography>
+            {pokemonData.abilities.map((ability) => (
+              <p key={ability.ability.name}>
+                <Link to={`/ability/${ability.ability.name}`}>
+                  {ability.ability.name}
+                </Link>
+              </p>
+            ))}
           </Paper>
         ) : (
           <Box display="flex" justifyContent="center" mt={4}>
