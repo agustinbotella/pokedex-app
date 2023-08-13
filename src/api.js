@@ -10,7 +10,6 @@ export const fetchPokemonByName = async (name) => {
   return axios.get(`${BASE_URL}/pokemon/${name}`);
 };
 
-export const fetchPokemonSearch = async (name) => {
-  const pokemons = await axios.get(`${BASE_URL}/pokemon?limit=100000&offset=0`);
-  return pokemons.data.results.filter((pokemon) => pokemon.name.includes(name));
+export const fetchPokemonSearch = async (pokemons, name) => {
+  return pokemons.filter((pokemon) => pokemon.name.includes(name));
 };

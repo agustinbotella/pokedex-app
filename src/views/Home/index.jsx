@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Container,
   Box,
@@ -8,6 +8,7 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 import { fetchPokemons, fetchPokemonSearch } from "../../api";
 import PokemonGrid from "../../components/PokemonGrid";
 import NoPokemons from "../../components/NoPokemons";
@@ -19,10 +20,22 @@ function Home() {
   const [search, setSearch] = useState("");
 
   const ITEMS_PER_PAGE = 10;
+  const BASE_URL = "https://pokeapi.co/api/v2";
+
+  let fullPokemonList = useRef(null);
+
+  const getFullPokemonsList = async () => {
+    return await axios.get(`${BASE_URL}/pokemon?limit=100000&offset=0`);
+  };
 
   useEffect(() => {
+    if (fullPokemonList.current.length === 0) {
+      getFullPokemonsList().then((response) => {
+        fullPokemonList.current = response.data.results;
+      });
+    }
     if (search) {
-      fetchPokemonSearch(search).then((response) => {
+      fetchPokemonSearch(fullPokemonList.current, search).then((response) => {
         setPokemons(response);
         setTotalPokemonCount(response.length);
       });
