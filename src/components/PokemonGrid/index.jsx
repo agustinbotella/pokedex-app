@@ -5,9 +5,17 @@ import PokemonCard from "../PokemonCard";
 const PokemonGrid = ({ pokemons }) => {
   if (pokemons.length === 0) {
     return (
-      <Box display="flex" justifyContent="center" mt={4}>
-        <CircularProgress />
-      </Box>
+      <Container>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="70vh"
+          mt={4}
+        >
+          <CircularProgress />
+        </Box>
+      </Container>
     );
   }
 

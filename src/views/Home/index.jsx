@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { fetchPokemons, fetchPokemonSearch } from "../../api";
 import PokemonGrid from "../../components/PokemonGrid";
-import NoPokemons from "../../components/NoPokemons";
 
 function Home() {
   const [pokemons, setPokemons] = useState([]);
@@ -27,6 +26,7 @@ function Home() {
         setTotalPokemonCount(response.length);
       });
     } else {
+      setPokemons([]);
       fetchPokemons(offset).then((response) => {
         setPokemons(response.data.results);
         setTotalPokemonCount(response.data.count);
@@ -56,11 +56,7 @@ function Home() {
         </Toolbar>
       </AppBar>
       <Box mt={2}>
-        {pokemons.length === 0 ? (
-          <NoPokemons />
-        ) : (
-          <PokemonGrid pokemons={pokemons} />
-        )}
+        <PokemonGrid pokemons={pokemons} />
         {!search && (
           <Box display="flex" justifyContent="center" mt={4}>
             <Pagination
