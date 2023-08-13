@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { fetchPokemons, fetchPokemonSearch } from "../../api";
 import PokemonGrid from "../../components/PokemonGrid";
+import NoPokemons from "../../components/NoPokemons";
 
 function Home() {
   const [pokemons, setPokemons] = useState([]);
@@ -56,7 +57,11 @@ function Home() {
         </Toolbar>
       </AppBar>
       <Box mt={2}>
-        <PokemonGrid pokemons={pokemons} />
+        {pokemons.length === 0 && search ? (
+          <NoPokemons />
+        ) : (
+          <PokemonGrid pokemons={pokemons} />
+        )}
         {!search && (
           <Box display="flex" justifyContent="center" mt={4}>
             <Pagination
